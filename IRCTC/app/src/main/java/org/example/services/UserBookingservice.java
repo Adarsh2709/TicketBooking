@@ -2,6 +2,7 @@ package org.example.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.Utils.UserServiceUtil;
 import org.example.entities.User;
 
 import java.io.File;
@@ -16,7 +17,7 @@ public class UserBookingservice {
 
     private ObjectMapper objectmapper = new ObjectMapper();
 
-    private static final String USER_PATH = "../localDb/users.json";
+    private static final String USER_PATH = "java/org/example/entities/User.java";
 
     public UserBookingservice(User user)throws IOException {
         this.user = user;
@@ -26,7 +27,7 @@ public class UserBookingservice {
     }
     public Boolean loginUser(){
         Optional<User> foundUser = userList.stream().filter(user1 -> {
-            return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
+            return user1.getName().equalsIgnoreCase(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
         }).findFirst();
         return foundUser.isPresent();
     }
