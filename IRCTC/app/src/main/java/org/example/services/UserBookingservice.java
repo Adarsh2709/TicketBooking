@@ -104,6 +104,30 @@ public class UserBookingservice {
         return train.getSeats();
     }
 
+    public Boolean bookTrainSeat(Train train,int row, int seat){
+        try{
+            TrainService trainService = new TrainService();
+            List<List<Train>> seats = train.getSeats();
+            if(row>=0 && row<seats.size() && seat>=0 && seat < seats.get(row).size()){
+                if(seats.get(row).get(seat)==0){
+                    seats.get(row).set(seat,1);
+                    train.setSeats(seats);
+                    trainService.addTrain(train);
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return  false;
+            }
+        }
+        catch(Exception ex){
+            return Boolean.FALSE;
+        }
+
+    }
 
 
 }
