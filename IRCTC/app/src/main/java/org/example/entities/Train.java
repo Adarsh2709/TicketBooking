@@ -19,6 +19,10 @@ public class Train {
         this.stations = stations;
     }
 
+    public Train(){
+
+    }
+
     public String getTrainId() {
         return trainId;
     }

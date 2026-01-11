@@ -3,15 +3,15 @@ package org.example.entities;
 import java.util.Date;
 
 public class Ticket {
-    private String ticket_Id;
+    private String ticketId;
     private String userId;
     private String source;
     private String destination;
     private Date dateOfTravel;
     private Train train;
 
-    public Ticket(String ticket_Id, String userId, String source, String destination, Date dateOfTravel, Train train) {
-        this.ticket_Id = ticket_Id;
+    public Ticket(String ticketId, String userId, String source, String destination, Date dateOfTravel, Train train) {
+        this.ticketId = ticketId;
         this.userId = userId;
         this.source = source;
         this.destination = destination;
@@ -19,8 +19,8 @@ public class Ticket {
         this.train = train;
     }
 
-    public String getTicket_Id() {
-        return ticket_Id;
+    public String getTicketId() {
+        return ticketId;
     }
 
     public String getUserId() {
@@ -44,7 +44,7 @@ public class Ticket {
     }
 
     public void setTicket_Id(String ticket_Id) {
-        this.ticket_Id = ticket_Id;
+        this.ticketId = ticket_Id;
     }
 
     public void setUserId(String userId) {
@@ -68,7 +68,7 @@ public class Ticket {
     }
 
     public String getTicketInfo(){
-        return String.format("Ticket Id:%s belongs to User %s from %s to %s on %s",ticket_Id,userId,source,destination,dateOfTravel);
+        return String.format("Ticket Id:%s belongs to User %s from %s to %s on %s",ticketId,userId,source,destination,dateOfTravel);
     }
 
 

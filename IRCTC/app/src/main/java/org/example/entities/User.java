@@ -32,7 +32,7 @@ public class User {
         return hashedpassword;
     }
 
-    public List<Ticket> getTicktesBooked() {
+    public List<Ticket> getTicketsBooked() {
         return ticktesBooked;
     }
 
