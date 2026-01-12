@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -37,7 +38,7 @@ public class TrainService {
         return sourceIdx!=-1 && destinationIdx!=-1 && sourceIdx<destinationIdx;
     }
 
-    public void addTrain(Train newTrain){
+    public void addTrain(Train newTrain) throws IOException {
         Optional<Train> existingTrain = trainList.stream().filter(train -> train.getTrainId().equalsIgnoreCase(newTrain.getTrainId())).findFirst();
         if(existingTrain.isPresent()){
             updateTrain(newTrain);
@@ -48,17 +49,17 @@ public class TrainService {
         }
     }
 
-    public void updateTrain(Train uptrain){
-            Optional index = IntStream.range(0,trainList.size())
-                    .filter(i -> trainList.get(i).getTrainId().equalsIgnoreCase(updatedTrain.getTrainId()))
+    public void updateTrain(Train uptrain) throws IOException {
+            OptionalInt index = IntStream.range(0,trainList.size())
+                    .filter(i -> trainList.get(i).getTrainId().equalsIgnoreCase(uptrain.getTrainId()))
                     .findFirst();
 
             if(index.isPresent()){
-                trainList.set(index.getAsInt(), updatedTrain);
+                trainList.set(index.getAsInt(), uptrain);
                 saveTrainListToFile();
             }
             else {
-                addTrain(updatedTrain);
+                addTrain(uptrain);
             }
     }
 
