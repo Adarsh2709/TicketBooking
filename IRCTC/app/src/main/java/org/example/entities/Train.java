@@ -1,13 +1,17 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
 public class Train {
+    @JsonProperty("train_id")
     private String trainId;
+    @JsonProperty("train_no")
     private String trainNo;
     private List<List<Integer>> seats;
+    @JsonProperty("station_times")
     private Map<String, String> stationTimes;
     private List<String> stations;
 
