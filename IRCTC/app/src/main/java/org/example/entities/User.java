@@ -31,14 +31,17 @@ public class User {
         return password;
     }
 
+    @JsonProperty("hashed_password")
     public String getHashedPassword() {
         return hashedpassword;
     }
 
+    @JsonProperty("tickets_booked")
     public List<Ticket> getTicketsBooked() {
         return ticketsBooked;
     }
 
+    @JsonProperty("user_id")
     public String getUserId() {
         return userId;
     }

@@ -25,10 +25,12 @@ public class Ticket {
 
     public Ticket() {}
 
+    @JsonProperty("ticket_id")
     public String getTicketId() {
         return ticketId;
     }
 
+    @JsonProperty("user_id")
     public String getUserId() {
         return userId;
     }
@@ -41,6 +43,7 @@ public class Ticket {
         return destination;
     }
 
+    @JsonProperty("date_of_travel")
     public Date getDateOfTravel() {
         return dateOfTravel;
     }
