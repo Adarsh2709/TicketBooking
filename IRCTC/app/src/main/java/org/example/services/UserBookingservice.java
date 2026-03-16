@@ -19,7 +19,8 @@ public class UserBookingservice {
 
     private List<User> userList;
 
-    private ObjectMapper objectmapper = new ObjectMapper();
+    private ObjectMapper objectmapper = new ObjectMapper()
+            .configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private static final String USER_PATH = "app/src/main/java/org/example/localDb/users.json";
 
@@ -38,11 +39,15 @@ public class UserBookingservice {
         return userList;
     }
 
-    public Boolean loginUser(){
+    public Boolean loginUser(User userCredentials){
         Optional<User> foundUser = userList.stream().filter(user1 -> {
-            return user1.getName().equalsIgnoreCase(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
+            return user1.getName().equalsIgnoreCase(userCredentials.getName()) && UserServiceUtil.checkPassword(userCredentials.getPassword(), user1.getHashedPassword());
         }).findFirst();
-        return foundUser.isPresent();
+        if (foundUser.isPresent()) {
+            this.user = foundUser.get();
+            return true;
+        }
+        return false;
     }
 
     public Boolean signUp(User user1){

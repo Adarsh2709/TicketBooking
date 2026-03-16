@@ -20,7 +20,7 @@ public class App {
         try{
             userBookingService = new UserBookingservice();
         }catch(IOException ex){
-            System.out.println("There is something wrong");
+            System.out.println("There is something wrong: " + ex.getMessage());
             return;
         }
         while(option!=7){
@@ -33,26 +33,28 @@ public class App {
             System.out.println("6. Cancel my Booking");
             System.out.println("7. Exit the App");
             option = sc.nextInt();
+            sc.nextLine(); // Clear the buffer
             Train trainSelectedForBooking = new Train();
             switch (option) {
                 case 1:
                     System.out.println("Enter the username to signup");
-                    String nameToSignUp = sc.next();
+                    String nameToSignUp = sc.nextLine();
                     System.out.println("Enter the password to signup");
-                    String passwordToSignUp = sc.next();
+                    String passwordToSignUp = sc.nextLine();
                     User userToSignup = new User(nameToSignUp, passwordToSignUp, UserServiceUtil.hashPassword(passwordToSignUp), new ArrayList<>(), UUID.randomUUID().toString());
                     userBookingService.signUp(userToSignup);
                     break;
                 case 2:
                     System.out.println("Enter the username to Login");
-                    String nameToLogin = sc.next();
-                    System.out.println("Enter the password to signup");
-                    String passwordToLogin = sc.next();
-                    User userToLogin = new User(nameToLogin, passwordToLogin, UserServiceUtil.hashPassword(passwordToLogin), new ArrayList<>(), UUID.randomUUID().toString());
-                    try {
+                    String nameToLogin = sc.nextLine();
+                    System.out.println("Enter the password to Login");
+                    String passwordToLogin = sc.nextLine();
+                    User userToLogin = new User(nameToLogin, passwordToLogin, "", new ArrayList<>(), "");
+                    if (userBookingService.loginUser(userToLogin)) {
+                        System.out.println("Login Success!");
                         userBookingService = new UserBookingservice(userToLogin);
-                    } catch (IOException ex) {
-                        return;
+                    } else {
+                        System.out.println("Login Failed!");
                     }
                     break;
                 case 3:
@@ -61,9 +63,9 @@ public class App {
                     break;
                 case 4:
                     System.out.println("Enter Source Station");
-                    String sourcestation = sc.next();
+                    String sourcestation = sc.nextLine();
                     System.out.println("Enter Destination Station");
-                    String destinationstation = sc.next();
+                    String destinationstation = sc.nextLine();
                     List<Train> trains = userBookingService.getTrains(sourcestation,destinationstation);
                     int idx = 1;
                     for(Train t : trains){
@@ -73,7 +75,9 @@ public class App {
                         }
                     }
                     System.out.println("Select a train by typing 1,2,3...");
-                    trainSelectedForBooking = trains.get(sc.nextInt());
+                    int trainIdx = sc.nextInt();
+                    sc.nextLine(); // Clear buffer
+                    trainSelectedForBooking = trains.get(trainIdx - 1);
                     break;
                 case 5:
                     System.out.println("Select a seat out of these seats");
@@ -89,6 +93,7 @@ public class App {
                     int row = sc.nextInt();
                     System.out.println("Enter the column");
                     int col = sc.nextInt();
+                    sc.nextLine(); // Clear buffer
                     System.out.println("Booking your seat....");
                     Boolean booked = userBookingService.bookTrainSeat(trainSelectedForBooking, row, col);
                     if(booked.equals(Boolean.TRUE)){

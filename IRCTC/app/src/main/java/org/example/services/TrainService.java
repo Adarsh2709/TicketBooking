@@ -15,7 +15,8 @@ import java.util.stream.IntStream;
 public class TrainService {
 
     private List<Train> trainList;
-    private ObjectMapper objectmapper = new ObjectMapper();
+    private ObjectMapper objectmapper = new ObjectMapper()
+            .configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     private static final String TRAIN_DB_PATH = "app/src/main/java/org/example/localDb/trains.json";
 
     public TrainService() throws Exception{

@@ -27,10 +27,12 @@ public class Train {
 
     }
 
+    @JsonProperty("train_id")
     public String getTrainId() {
         return trainId;
     }
 
+    @JsonProperty("train_no")
     public String getTrainNo() {
         return trainNo;
     }
@@ -39,6 +41,7 @@ public class Train {
         return seats;
     }
 
+    @JsonProperty("station_times")
     public Map<String, String> getStationTimes() {
         return stationTimes;
     }
