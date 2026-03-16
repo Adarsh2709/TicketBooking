@@ -21,7 +21,7 @@ public class UserBookingservice {
 
     private ObjectMapper objectmapper = new ObjectMapper();
 
-    private static final String USER_PATH = "java/org/example/entities/User.java";
+    private static final String USER_PATH = "app/src/main/java/org/example/localDb/users.json";
 
     public UserBookingservice(User user)throws IOException {
         this.user = user;
@@ -34,7 +34,8 @@ public class UserBookingservice {
 
     public List<User> loadUsers() throws IOException{
         File users = new File(USER_PATH);
-        return objectmapper.readValue(users, new TypeReference<List<User>>(){});
+        userList = objectmapper.readValue(users, new TypeReference<List<User>>(){});
+        return userList;
     }
 
     public Boolean loginUser(){
